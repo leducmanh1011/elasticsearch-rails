@@ -1,0 +1,38 @@
+body{
+
+  background-color: #00838F;
+}
+
+
+.advanced{
+
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+.btn-secondary,
+.btn-secondary:focus,
+.btn-secondary:active
+
+
+{
+  color: #fff;
+  background-color: #00838f !important;
+  border-color: #00838f !important;
+  box-shadow: none;
+}
+
+
+.advanced{
+
+  color: #00838f !important;
+}
+
+.form-control:focus{
+  box-shadow: none;
+  border: 1px solid #00838f;
+
+
+}
