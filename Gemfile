@@ -40,8 +40,9 @@ gem "redis", "~> 4.0"
 gem 'bootstrap', '~> 5.1.3'
 
 # Implement elasticsearch
-gem "searchkick"
-
+#gem "searchkick"
+gem 'chewy'
+gem 'kaminari'
 # Fake data
 gem 'faker'
 
