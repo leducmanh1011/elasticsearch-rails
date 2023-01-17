@@ -29,6 +29,7 @@ class TracksIndex < Chewy::Index
   index_scope Track.includes(:album, :genre)
   default_import_options batch_size: 100, bulk_size: 10.megabytes, refresh: false
 
+  field :id, type: "integer"
   field :name
   field :email, analyzer: "email"
   field :composer, analyzer: "english_ngram"
