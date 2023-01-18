@@ -12,6 +12,7 @@ class TrackSearch < SearchBase
   def search_conditions
     {
       must: {
+        free_word_query: %i[name],
         term_query: %i[realease_date seconds]
       },
       must_not: {}

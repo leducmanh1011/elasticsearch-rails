@@ -6,7 +6,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Faker::Config.locale = :ja
+def gen_name_by_locale locale = :en
+  Faker::Config.locale = locale
+  Faker::Name.unique.name
+end
 
 Chewy.strategy(:atomic) do
   50.times do |n|
@@ -21,7 +24,10 @@ Chewy.strategy(:atomic) do
   genre_ids = Genre.ids
 
   Album.all.each do |a|
-    Track.create! name: Faker::Name.unique.name, album_id: a.id, genre_id: genre_ids.sample,
-      composer: Faker::Music.band, seconds: Array(3173..5893).sample, realease_date: rand(10.years.ago.to_date..Date.current - 1.month)
+    Track.create! name_en: gen_name_by_locale, name_ja: gen_name_by_locale(:ja),
+      album_id: a.id, genre_id: genre_ids.sample,
+      composer: Faker::Music.band, seconds: Array(180..700).sample, 
+      realease_date: rand(10.years.ago.to_date..Date.current - 1.month),
+      email: Faker::Internet.email
   end
 end

@@ -128,7 +128,6 @@ class SearchBase
     result.compact
   end
 
-
   def match_query field, query, operator = nil
     if operator.present?
       {
@@ -146,6 +145,23 @@ class SearchBase
         }
       }
     end
+  end
+
+  def free_word_query fields
+    return if options[:free_word].blank?
+
+    search_fields = []
+    SEARCH_LANGUAGES.each do |lang|
+      fields.each{|field| search_fields << "#{field}.#{lang}"}
+    end
+
+    result = search_fields.map do |field|
+      options[:free_word].map do |item|
+        match_query field, item, :and
+      end
+    end
+
+    {bool: {should: result.flatten.compact}}
   end
 
   def must_conditions
