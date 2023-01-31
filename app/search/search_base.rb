@@ -16,7 +16,6 @@ class SearchBase
 
   def filter
     result = search_with_normal_pagination["hits"]
-    binding.pry
     records = result["hits"]
     total_count = result["total"]["value"]
     [records, total_count]
