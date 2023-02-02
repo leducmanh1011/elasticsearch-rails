@@ -12,7 +12,7 @@ class TrackSearch < SearchBase
   def search_conditions
     {
       must: {
-        free_word_query: %i[name],
+        free_word_query: %i[name album email composer],
         term_query: %i[realease_date seconds]
       },
       must_not: {}

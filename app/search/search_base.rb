@@ -60,6 +60,7 @@ class SearchBase
       from: (page - 1) * per_page
     }
     query = bool_condition.present? ? body_query.merge(from_query) : body_query_search_all
+    # binding.pry
     search_target.client.search body: query
   end
 
@@ -149,9 +150,13 @@ class SearchBase
   def free_word_query fields
     return if options[:free_word].blank?
 
-    search_fields = []
-    SEARCH_LANGUAGES.each do |lang|
-      fields.each{|field| search_fields << "#{field}.#{lang}"}
+    search_fields = fields
+
+    if fields.include?(:name)
+      search_fields.delete(:name)
+      SEARCH_LANGUAGES.each do |lang|
+        search_fields << "#{:name}.#{lang}"
+      end
     end
 
     result = search_fields.map do |field|

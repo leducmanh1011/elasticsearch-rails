@@ -7,35 +7,44 @@
   </div>
   <div class='row'>
     <div class='col-md-6'>
-      <div class='search-box'>
-        <%= form_for :search, class: "search-form", url: searchs_path, method: :get do |form| %>
-            <%= form.text_field :keyword,  value: params.dig(:search, :keyword), class: "form-control", placeholder: "Enter to search..." %>
-            <%= form.button nil, class: "btn btn-link search-btn", type: :submit do %>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-              </svg>
-            <% end %>
-        <% end %>
-      </div>
+     
+      <%= form_for :search, class: "search-form", url: searchs_path, method: :get do |form| %>
+        <div class='search-box'>
+          <%= form.text_field :free_word,  value: params.dig(:search, :free_word), class: "form-control", placeholder: "Enter to search..." %>
+          <%= form.button nil, class: "btn btn-link search-btn", type: :submit do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          <% end %>
+        </div>
+        </br></br>
+        Minutes: (3 - 6 mins) <%= form.range_field :seconds, class: "form-control form-range", min: 2, max: 6 %>
+
+        </br></br>
+        Realease date: 
+        <%= form.text_field :realease_date_from,  value: params.dig(:search, :realease_date_from), class: "form-control realease_date datepicker", placeholder: "From", id: "datepicker" %>
+        <%= form.text_field :realease_date_to,  value: params.dig(:search, :realease_date_to), class: "form-control realease_date datepicker", placeholder: "To", id: "datepicker" %>
+      <% end %>
+  
     </div>
   </div>
   <br/>
   <div class="row">
     <div class='col-md-12'>
-      About <%= 0 %> results
+      About <%= @total_count %> results
     </div>
   </div>
   <br/>
   <div class="row">
     <% @tracks.each do |track| %>
-      <div class='col-md-3'>
-        <div class="card" style="width: 18rem; margin: 15px 5px">
+      <div class='col-md-6'>
+        <div class="card" style="margin: 15px 5px">
           <div class="card-body">
-            <h5 class="card-title"><%= track["_source"]["album"] %></h5>
-            <h6 class="card-subtitle mb-2 text-muted"><%= track["_source"]["name"]["en"] %></h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <span class="card-title"><%= track["_source"]["album"] %></span> -
+            <span class="card-subtitle mb-2 text-muted"><%= track["_source"]["name"]["en"] %></span></br>
+            Composer: <span class="card-text"><%= track["_source"]["composer"] %></span> (<%= track["_source"]["email"] %>)</br>
+            Realease date: <span class="card-text"><%= track["_source"]["realease_date"] %></span></br>
+            <span class="card-text"><%= track["_source"]["seconds"].to_i.to_minutes %></span>
           </div>
         </div>
       </div>
