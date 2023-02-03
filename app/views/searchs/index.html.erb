@@ -40,9 +40,9 @@
       <div class='col-md-6'>
         <div class="card" style="margin: 15px 5px">
           <div class="card-body">
-            <span class="card-title"><%= track["_source"]["album"] %></span> -
-            <span class="card-subtitle mb-2 text-muted"><%= track["_source"]["name"]["en"] %></span></br>
-            Composer: <span class="card-text"><%= track["_source"]["composer"] %></span> (<%= track["_source"]["email"] %>)</br>
+            <span class="card-title"><%= highlight_text(track, "album") %></span> -
+            <span class="card-subtitle mb-2 text-muted"><%= highlight_text(track, "name.en") %></span></br>
+            Composer: <span class="card-text"><%= highlight_text(track, "composer") %></span> (<%= highlight_text(track, "email") %>)</br>
             Realease date: <span class="card-text"><%= track["_source"]["realease_date"] %></span></br>
             <span class="card-text"><%= track["_source"]["seconds"].to_i.to_minutes %></span>
           </div>

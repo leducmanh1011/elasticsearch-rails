@@ -18,6 +18,8 @@ class SearchBase
     result = search_with_normal_pagination["hits"]
     records = result["hits"]
     total_count = result["total"]["value"]
+    # binding.pry
+
     [records, total_count]
   end
 
